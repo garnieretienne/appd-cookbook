@@ -75,7 +75,8 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-        "recipe[appd::default]"
+      "recipe[appd::default]",
+      "recipe[appd::_vagrant]"
     ]
   end
 end

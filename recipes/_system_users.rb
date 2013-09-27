@@ -53,3 +53,9 @@ if File.directory? admin_keys then
     end
   end
 end
+
+# Ensure sysop users can execute command as root
+sudo 'sysop' do
+  group 'sysop'
+  nopasswd true
+end
