@@ -8,4 +8,5 @@ version          '0.1.0'
 supports         'ubuntu', '= 12.4'
 
 depends          'sudo'
+depends          'nginx'
 
