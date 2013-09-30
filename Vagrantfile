@@ -9,11 +9,15 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "appd-cookbook-berkshelf"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise64"
+  #config.vm.box = "precise64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  #config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+  # Use opscode ubuntu image
+  config.vm.box = "opscode_ubuntu-12.04_chef-11.4.4"
+  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.4.4.box"
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
@@ -25,7 +29,7 @@ Vagrant.configure("2") do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
 
-  # config.vm.network :public_network
+  config.vm.network :public_network
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,

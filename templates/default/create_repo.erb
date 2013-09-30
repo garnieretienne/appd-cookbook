@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Create a git repository
+# Usage: create_repo REPOSITORY_NAME
+set -e
+
+repo_name=$1
+git init --bare --template $HOME/appd-template $HOME/${repo_name}.git &> /dev/null
+echo "${USER}@$(hostname --fqdn):${repo_name}.git"
