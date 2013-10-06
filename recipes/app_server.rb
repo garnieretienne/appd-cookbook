@@ -83,16 +83,16 @@ end
 
 # Ensure the kernel support AUFS
 # See: http://docs.docker.io/en/latest/installation/ubuntulinux/
-# bash "update the linux kernel to support aufs" do
-#   code <<-EOF
-#     if apt-cache search linux-image-extra-`uname -r` | grep linux-image-extra-`uname -r` &> /dev/null; then
-#       apt-get install --assume-yes linux-image-extra-`uname -r`
-#     elif apt-cache search linux-image-generic-lts-raring | grep linux-image-generic-lts-raring &> /dev/null; then
-#       apt-get install --assume-yes linux-image-generic-lts-raring linux-headers-generic-lts-raring
-#     fi
-#   EOF
-#   not_if "lsmod | grep aufs"
-# end
+bash "update the linux kernel to support aufs" do
+  code <<-EOF
+    if apt-cache search linux-image-extra-`uname -r` | grep linux-image-extra-`uname -r` &> /dev/null; then
+      apt-get install --assume-yes linux-image-extra-`uname -r`
+    elif apt-cache search linux-image-generic-lts-raring | grep linux-image-generic-lts-raring &> /dev/null; then
+      apt-get install --assume-yes linux-image-generic-lts-raring linux-headers-generic-lts-raring
+    fi
+  EOF
+  not_if "lsmod | grep aufs"
+end
 
 # Install docker
 package "lxc-docker"
