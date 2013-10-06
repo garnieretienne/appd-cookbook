@@ -14,7 +14,7 @@ class Chef
             @current_recipe = resource_recipe
           end
 
-          print "  * #{action} '#{resource.name}' #{resource.resource_name if resource.resource_name != :execute}..." if action != :nothing
+          print "* #{action} '#{resource.name}' #{resource.resource_name if resource.resource_name != :execute}..." if action != :nothing
         end
       end
 
@@ -33,13 +33,7 @@ class Chef
       private
 
       def print_resource?(resource)
-        blacklist = ["ohai"]
-        if resource.cookbook_name && resource.recipe_name
-          if !blacklist.include?(resource.cookbook_name.downcase)
-            return true
-          end
-        end
-        return false
+        return (resource.cookbook_name && resource.recipe_name)
       end
     end
   end
