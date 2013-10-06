@@ -20,12 +20,12 @@ class Chef
 
       def resource_up_to_date(resource, action)
         # puts "\b\b\b\b (nothing to do)"
-        puts " (nothing to do)" if print_resource?
+        puts " (nothing to do)" if print_resource?(resource)
       end
 
       def resource_updated(resource, action)
         # puts "\b\b\b\b (done)"
-        puts " (done)" if print_resource?
+        puts " (done)" if print_resource?(resource)
       end
 
       private
@@ -33,7 +33,7 @@ class Chef
       def print_resource?(resource)
         blacklist = ["ohai"]
         if resource.cookbook_name && resource.recipe_name
-          if !blacklist.include? resource.cookbook_name.downcase
+          if !blacklist.include?(resource.cookbook_name.downcase)
             return true
           end
         end
