@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Run an app process in docker
+# If no build version is specified, start the last build
+# If the process type is 'web' assign a NATed port to the container and display it
+set -e
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "Usage: run APP PROCESS [VERSION]"
+else
+  app=$1
+  process=$2
+  last_build_number=$(docker images $app | grep -E ' v[0-9]* ' | wc -l)
+  version=${3:-v${last_build_number}}
+  release_id=$(docker images $app | grep -E " ${version} " | awk '{ print $3 }')
+
+  case "$process" in
+    web)
+      container=$(docker run -p 80 -d ${release_id} /bin/bash -c "PORT=80 /start ${process}")
+      port=$(docker port ${container} 80)
+      echo "127.0.0.1:${port}"
+      ;;
+    *)
+      container=$(docker run -d ${release_id} /bin/bash -c "/start ${process}")
+      ;;
+  esac
+fi

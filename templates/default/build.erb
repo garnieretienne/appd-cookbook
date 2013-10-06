@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Build a slug image for the given git revision
+# If no revision is given, default is set to 'master'
+# The script print the heroku buildpack output to the user
+# The resulting docker image is tagged as 'slug' image
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: build APP [REVISION]"
+else
+  app=$1
+  revision=${2:-master}
+  echo "-----> Building ${app}..."
+  cd ~/${app}.git
+  git archive $revision | <%= node[:appd][:buildstep][:dir] %>/buildstep $app
+  id=$(docker images $app | grep latest | awk '{ print $3 }')
+  docker tag $id $app slug
+fi

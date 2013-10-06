@@ -1,5 +1,21 @@
 #!/bin/bash
-#
-#
+PATH="${HOME}/git-shell-commands:${PATH}"
+set -e
 
-echo $@
+repo=$(basename "$PWD")
+app=${repo%.git}
+
+while read oldrev newrev refname
+do
+  echo ""
+  echo "-----> Receiving push"
+  build $app $newrev
+  echo "-----> Deploying"
+  version=$(release $app)
+  echo "-----> Launching $version"
+  backends=$(run $app web $version)
+  url=$(route $app $backends)
+  echo "-----> Done:"
+  echo "       $url"
+  echo ""
+done

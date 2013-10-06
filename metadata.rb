@@ -10,4 +10,5 @@ supports         'ubuntu', '= 12.4'
 depends          'sudo'
 depends          'nginx'
 depends          'git'
+depends          'docker'
 

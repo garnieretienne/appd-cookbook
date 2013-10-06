@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Display help message for the limited shell access
+set -e
+
+cat <<EOF
+
+Appd interactive shell.
+
+Commands:
+  help      # Display this message. You can type a command without arguments to display its usage
+  create    # Create a new git repository ready to deploy an application
+  build     # Build a slug image from a git revision / branch using docker
+  release   # Build a release image with the latest slug image and the given environment settings using docker
+  run       # Run an app process in docker
+  route     # Update the application routes file and reload nginx
+
+EOF

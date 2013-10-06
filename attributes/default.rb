@@ -1,0 +1,12 @@
+# Appd
+node.default[:appd][:sysops_keys] = "/root/sysops"
+node.default[:appd][:devops_keys] = "/root/devops"
+node.default[:appd][:user] = "appd"
+node.default[:appd][:home] = "/srv/#{node[:appd][:user]}"
+node.default[:appd][:docker_group] = "docker"
+node.default[:appd][:git_template] = "appd-template"
+node.default[:appd][:routes] = "#{node[:appd][:home]}/routes"
+node.default[:appd][:update_routes_cmd] = "sudo nginx -s reload"
+node.default[:appd][:buildstep][:repo] = "https://github.com/progrium/buildstep.git"
+node.default[:appd][:buildstep][:dir] = "#{node[:appd][:home]}/buildstep"
+node.default[:appd][:buildstep][:base_container] = "https://s3.amazonaws.com/progrium-dokku/progrium_buildstep_c30652f59a.tgz"
