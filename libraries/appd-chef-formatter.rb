@@ -5,7 +5,8 @@ class Chef
       cli_name(:appd)
 
       def resource_action_start(resource, action, notification_type = nil, notifier = nil)
-        if resource.cookbook_name && resource.recipe_name
+        if print_resource?(resource)
+          
           resource_recipe = "#{resource.cookbook_name.downcase} #{resource.recipe_name.downcase if resource.recipe_name.downcase != "default"}:"
       
           if resource_recipe != @current_recipe
@@ -19,12 +20,24 @@ class Chef
 
       def resource_up_to_date(resource, action)
         # puts "\b\b\b\b (nothing to do)"
-        puts " (nothing to do)"
+        puts " (nothing to do)" if print_resource?
       end
 
       def resource_updated(resource, action)
         # puts "\b\b\b\b (done)"
-        puts " (done)"
+        puts " (done)" if print_resource?
+      end
+
+      private
+
+      def print_resource?(resource)
+        blacklist = ["ohai"]
+        if resource.cookbook_name && resource.recipe_name
+          if !blacklist.include? resource.cookbook_name.downcase
+            return true
+          end
+        end
+        return false
       end
     end
   end
