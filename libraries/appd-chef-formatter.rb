@@ -7,7 +7,7 @@ class Chef
       def resource_action_start(resource, action, notification_type = nil, notifier = nil)
         if print_resource?(resource)
           
-          resource_recipe = "#{resource.cookbook_name.downcase} #{resource.recipe_name.downcase if resource.recipe_name.downcase != "default"}:"
+          resource_recipe = "#{resource.cookbook_name.downcase} #{resource.recipe_name.downcase.gsub(/_/, "").chomp if resource.recipe_name.downcase != "default"}:"
       
           if resource_recipe != @current_recipe
             puts "Configure #{resource_recipe}"
