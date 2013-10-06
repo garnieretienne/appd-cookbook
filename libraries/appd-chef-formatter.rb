@@ -10,7 +10,7 @@ class Chef
           resource_recipe = "#{resource.cookbook_name.downcase} #{resource.recipe_name.downcase if resource.recipe_name.downcase != "default"}:"
       
           if resource_recipe != @current_recipe
-            puts "Configuring #{resource_recipe}"
+            puts "Configure #{resource_recipe}"
             @current_recipe = resource_recipe
           end
 
