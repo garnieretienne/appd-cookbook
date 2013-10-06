@@ -27,8 +27,7 @@ class Chef
       end
 
       def resource_skipped(resource, action, conditional)
-        # puts "\b\b\b\b (#{resource.cookbook_name}: nothing to do)" if print_resource?(resource)
-        puts " (skipped due to #{conditional.short_description})" if print_resource?(resource)
+        puts "\b\b\b\b (skipped)" if print_resource?(resource) && action != :nothing
       end
 
       private
