@@ -67,7 +67,7 @@ end
 end
 
 # Add the store command from git
-remote_file "#{node[:appd][:home]}/git-shell-commands/#{store}" do
+remote_file "#{node[:appd][:home]}/git-shell-commands/store" do
   source "https://raw.github.com/garnieretienne/store/master/store"
   owner node[:appd][:user]
   group node[:appd][:user]
