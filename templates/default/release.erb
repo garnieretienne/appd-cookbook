@@ -13,7 +13,7 @@ else
   slug_id=$(docker images $app | grep slug | awk '{ print $3 }')
   last_build_number=$(docker images $app | grep -E ' v[0-9]* ' | wc -l)
   next_build_number=$((last_build_number+1))
-  container=$(docker run -i -a stdin $slug_id /bin/bash -c "mkdir -p /app/.profile.d && echo '${config}' > /app/.profile.d/env.sh")
+  container=$(docker run -d $slug_id /bin/bash -c "mkdir -p /app/.profile.d && echo '${config}' > /app/.profile.d/env.sh")
   id=$(docker commit $container $app v${next_build_number})
   echo "v${next_build_number}"
 fi
