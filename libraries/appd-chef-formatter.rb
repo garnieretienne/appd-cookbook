@@ -14,7 +14,7 @@ class Chef
             @current_recipe = resource_recipe
           end
 
-          print "* #{action} '#{resource.name}' #{resource.resource_name if resource.resource_name != :execute}..." if action != :nothing
+          print "* #{action} '#{resource.name}' #{resource.resource_name if [:execute, :bash].include?(resource.resource_name) }..." if action != :nothing
         end
       end
 
