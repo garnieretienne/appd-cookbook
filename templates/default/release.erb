@@ -3,17 +3,24 @@
 # Build a release image with the latest slug image and the given environment settings
 # The resulting docker image is tagged with an incremental version number
 # The script output the release version number
+# Exit status:
+# * 2: No code has been deployed in the repository yet (= no slug image)
 set -e
 
-if [ -z "$1" ]; then
+if [[ -z $1 ]]; then
   echo "Usage: release APP [SETTING_1=foo SETTING_2=bar]"
 else
   app=$1
   config="${*:2}"
   slug_id=$(docker images $app | grep slug | awk '{ print $3 }')
-  last_build_number=$(docker images $app | grep -E ' v[0-9]* ' | wc -l)
-  next_build_number=$((last_build_number+1))
-  container=$(docker run -d $slug_id /bin/bash -c "mkdir -p /app/.profile.d && echo '${config}' > /app/.profile.d/env.sh")
-  id=$(docker commit $container $app v${next_build_number})
-  echo "v${next_build_number}"
+  if [[ -z $slug_id ]]; then
+    echo "You have not deployed any code yet." 1>&2
+    exit 2
+  else
+    last_build_number=$(docker images $app | grep -E ' v[0-9]* ' | wc -l)
+    next_build_number=$((last_build_number+1))
+    container=$(docker run -d $slug_id /bin/bash -c "mkdir -p /app/.profile.d && echo '${config}' > /app/.profile.d/env.sh")
+    id=$(docker commit $container $app v${next_build_number})
+    echo "v${next_build_number}"
+  fi
 fi
