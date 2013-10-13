@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# List all app repositories in the `$HOME` folder
+# Exit with an exit code of 1 if no apps have been found
+# Output the apps names
+set -e
+
+apps=$(ls ~/ | grep .git)
+if [[ $? != 0 ]]; then
+  echo "No apps found." 1>&2
+  exit 1
+else
+  for app in $apps; do
+    echo ${app%.git}
+  done
+fi

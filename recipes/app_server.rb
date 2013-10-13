@@ -58,7 +58,7 @@ directory "#{node[:appd][:home]}/git-shell-commands" do
 end
 
 # Build each command scripts
-['help', 'create', 'build', 'release', 'run', 'route'].each do |command|
+['help', 'create', 'build', 'release', 'run', 'route', 'list'].each do |command|
   template "#{node[:appd][:home]}/git-shell-commands/#{command}" do
     owner node[:appd][:user]
     group node[:appd][:user]
