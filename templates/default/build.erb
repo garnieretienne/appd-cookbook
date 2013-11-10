@@ -15,5 +15,5 @@ else
   cd ~/${app}.git
   git archive $revision | <%= node[:appd][:buildstep][:dir] %>/buildstep $app
   id=$(docker images $app | grep latest | awk '{ print $3 }')
-  docker tag $id $app slug
+  docker tag $id ${app}:slug
 fi

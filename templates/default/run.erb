@@ -18,7 +18,7 @@ else
     web)
       container=$(docker run -p 80 -d ${release_id} /bin/bash -c "PORT=80 /start ${process}")
       port=$(docker port ${container} 80)
-      echo "127.0.0.1:${port}"
+      echo $port
       ;;
     *)
       container=$(docker run -d ${release_id} /bin/bash -c "/start ${process}")
