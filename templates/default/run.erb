@@ -16,7 +16,11 @@ else
 
   case "$process" in
     web)
+      running_ids=$(docker ps | grep ${app} | awk '{ print $1;}')
       container=$(docker run -p 80 -d ${release_id} /bin/bash -c "PORT=80 /start ${process}")
+      for id in $running_ids; do
+        docker stop $id &> /dev/null &
+      done
       port=$(docker port ${container} 80)
       echo $port
       ;;
